@@ -66,7 +66,7 @@
     }
 
     function search() {
-        var key = $("#key").val();
+        var key = mini.get("key").val();
         datagrid.load({username:key});
     }
 
