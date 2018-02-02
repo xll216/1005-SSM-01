@@ -28,6 +28,8 @@ public class StudentServiceImpl
 
         StudentParamter paramter = new StudentParamter();
 
+        pageIndex = pageIndex * pageSize;
+
         paramter.setUsername(username);
         paramter.setPageIndex(pageIndex);
         paramter.setPageSize(pageSize);
