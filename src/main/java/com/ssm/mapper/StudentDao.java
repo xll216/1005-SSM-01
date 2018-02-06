@@ -18,4 +18,8 @@ public interface StudentDao {
      * 条件查询总条数
      **/
     Integer getTotalRecord(StudentParamter paramter);
+
+    Student selectByID(int id);
+
+    Student selectByName(String username);
 }

@@ -44,4 +44,14 @@ public class StudentServiceImpl
 
         return result;
     }
+
+    @Override
+    public Student selectByID(int id) {
+        return studentDao.selectByID(id);
+    }
+
+    @Override
+    public Student selectByName(String username) {
+        return studentDao.selectByName(username);
+    }
 }

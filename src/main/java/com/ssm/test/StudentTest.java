@@ -48,4 +48,12 @@ public class StudentTest {
 
 
     }
+
+    @Test
+    public void selectByID() {
+        Student student = studentDao.selectByID(1);
+
+        System.out.println(student);
+    }
+
 }

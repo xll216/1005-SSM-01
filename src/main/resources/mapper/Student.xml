@@ -34,4 +34,21 @@
         <include refid="usernameSql"/>
     </select>
 
+    <select id="selectByID"
+            resultType="com.ssm.domain.Student">
+        SELECT
+        <include refid="studentColumns"/>
+        FROM student
+        WHERE id = #{value}
+    </select>
+
+
+    <select id="selectByName"
+            resultType="com.ssm.domain.Student">
+        SELECT
+        <include refid="studentColumns"/>
+        FROM student
+        WHERE username = #{value}
+    </select>
+
 </mapper>

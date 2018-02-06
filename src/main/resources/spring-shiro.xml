@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--开启aop，对类代理-->
+    <aop:config proxy-target-class="true"/>
+
+    <!--shiro配置-->
+    <bean id="customRealm"
+          class="com.ssm.shiro.CustomRealm">
+    </bean>
+
+    <!--securitManager安全管理器-->
+    <bean id="securityManager"
+          class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="customRealm"/>
+    </bean>
+
+    <!--开启shiro注解支持-->
+    <bean id="authorizationAttributeSourceAdvisor"
+          class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+
+    <bean id="shiroFilter"
+          class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+
+        <!--loginUrl认证提交地址，如果没有认证将会请求此地址进行认证，
+        请求此地址将由formAuthenticationFilter进行表单认真-->
+        <property name="loginUrl" value="/login"/>
+
+        <!--登录成功的界面-->
+        <property name="successUrl" value="/index"/>
+
+        <!--通过unauthorizedUrl指定没有权限操作时跳转页面 -->
+        <property name="unauthorizedUrl" value="/pageRefuse"/>
+
+        <!--过滤器定义，从上向下顺序执行，一般将/**放在最下边-->
+        <property name="filterChainDefinitions">
+            <value>
+                <!--对静态资源设置匿名访问-->
+                /css/**=anon
+                /scripts/**=anon
+                /js/**=anon
+
+                <!--默认页面匿名可以访问-->
+                /pageLogin=anon
+                /pageRefuse=anon
+
+                <!--请求/login地址，shiro去清除session-->
+                /logout=logout
+
+                <!--认证通过可以访问的地址-->
+                /home=user
+                /index=user
+
+                <!--所有url都必须认证通过才可以访问-->
+                /**=authc
+            </value>
+        </property>
+
+    </bean>
+
+
+</beans>

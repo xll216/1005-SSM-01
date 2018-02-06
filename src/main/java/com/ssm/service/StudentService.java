@@ -12,4 +12,8 @@ public interface StudentService {
             int pageIndex,
             int pageSize,
             String username);
+
+    Student selectByID(int id);
+
+    Student selectByName(String username);
 }
